@@ -1,3 +1,5 @@
+alias subl="/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe
+
 git log
 git log --all --decorate --oneline --graph
 alias gitgraph="git log --all --decorate --oneline --graph"
