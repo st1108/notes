@@ -1,0 +1,10 @@
+#displays the control characters
+cat -v
+
+# To check access 
+vastool user checkaccess forasit1
+
+#
+echo -e
+
+#rsync command
