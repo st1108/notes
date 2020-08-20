@@ -45,14 +45,3 @@ git stash pop = apply most recent stash, and remove it from saved stashes
 git stash apply (stash reference) = apply a specific stash point
 git stash save "(description)" = create a stash point, be more descriptive
 
-
-#displays the control characters
-cat -v
-
-# To check access 
-vastool user checkaccess forasit1
-
-#
-echo -e
-
-#rsync command
