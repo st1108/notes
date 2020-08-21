@@ -1,4 +1,10 @@
-Networking commands and their actual working: ping, telnet, netstat, traceroute
+##################Networking commands and their actual working: ping, telnet, netstat, traceroute################3333
+
+https://www.tecmint.com/linux-network-configuration-and-troubleshooting-commands/
+
+
+
+######################################################################################################################
 
 #inode  contains the metadata of a file like : size, timestamp, userid , groupid, pointer to data
         FIle names are saved separately with ink to the inode, in this way we can create hard link files and give file more than one name.
@@ -58,12 +64,63 @@ chmod 600 authorized_keys
 # to check if file is non-zero     [ -s  file_name ]
 
 ################sed########################
- sed -i .bak 's/t/T/g' text    					#will change the text file  and create a text.bak as well
+http://sed.sourceforge.net/sed1line.txt
+
+ sed -i .bak 's/t/T/g' text    					# will change the text file  and create a text.bak as well
  sed -n '5,10p' myfile.txt     					# viewing a range of file
  sed '20,35d' myfile.txt       					# Viewing the entire file except a given range
  sed -n -e '5,7p' -e '10,13p' myfile.text       # Let’s display lines 5-7 and 10-13 from myfile.txt. As you can see, the -e option allows us to execute a 													 given action (in this case, print lines) for each range.
  sed 's/version/story/g' myfile.txt
  sed '30,40 s/version/story/g' myfile.text      # Replacing words or characters inside a range
+ 
  sed G myfile.text                              # Inserting spaces in files
+ sed '/regex/G'                                 # insert a blank line below every line which matches "regex"
  sed 'G;G' myfile.text                          # inserting two spaces in files
+
  sed -i 's/\r//' myfile.txt                     # removing cntrl M characters from file
+ ip route show |  sed 's/  */ /g'               # replacing multiple spaces with one
+ sed '/^#\|^$\| *#/d' httpd.conf                # remove empty lines and ines starting or ending with #
+ sed 's/[Zz]ip/rar/g' myfile.txt                # replace the word zip or Zip with rar 
+ sed '/services/ s/start/stop/g' msg.txt        # we may want to replace start with stop only if the word services is found in the same line.
+ ip route show |sed -n '/dhcp/p' |sed 's/ *//g' # using with multiple commands
+
+#####################awk####################33
+awk '//{print}'/etc/hosts 					    # print all the lines 
+awk '/localhost/{print}' /etc/hosts				# print files matching the pattern
+awk '/l.c/{print}' /etc/hosts                   # will match strings containing loc, localhost, localnet
+awk '/l*c/{print}' /etc/localhost               # It will match strings containing localhost, localnet, lines, capable.
+awk '/[al1]/{print}' /etc/hosts                 # Take for example the set [al1], here awk will match all strings containing character a or l or 1 in a line 													in the file /etc/hosts.
+ awk '/[Kk]T/{print}' /etc/hosts                # e matches strings starting with either K or k followed by T
+
+Specifying Characters in a Range
+Understand characters with awk:
+
+[0-9] means a single number
+[a-z] means match a single lower case letter
+[A-Z] means match a single upper case letter
+[a-zA-Z] means match a single letter
+[a-zA-Z 0-9] means match a single letter or number
+
+awk '/[0-9]/{print}' /etc/hosts 
+awk '/^ff/{print}' /etc/hosts
+
+
+################Grep###############3
+Using grep -c alone will count the number of lines that contain the matching word instead of the number of total matches. The -o option is what tells grep to output each match in a unique line and then wc -l tells wc to count the number of lines. 
+
+grep -o -i mauris example.txt | wc -l
+
+grep : 
+
+1. grep -n "TEXT" file_name  -- print TEXT with line number within file file_name
+2. grep -v "TEXT" file_name  -- print negative result. Print lines that do not contain TEXT within file file_name
+3. grep -c "TEXT" file_name  -- print number of lines containing TEXT within file file_name
+4. grep -l "TEXT" *  		 -- print file names of the files which contain TEXT.
+5. grep -i "TEXT" file_name  -- ignore case. search for TEXT in any case within file file_name
+6. grep -x "TEXT" file_name  -- eXact match. Search for exact TEXT within file file_name.
+7. grep -A2 "TEXT" file_name  -- print 2 additional line with the line containing TEXT within file file_name.
+
+8. grep "e$" file_name -- for lines ending with 'e' within file file_name.
+9. grep "boots?" a_file --  the regexp command ? will match 1 or 0 occurrences of the previous character hence it will search for 'boot' or 'boots'.
+10. grep -E "boot|boots" a_file -- either grep or egrep. It will search for 'boot' or 'boots'. '|' represents OR.
+
