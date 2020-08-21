@@ -1,0 +1,69 @@
+Networking commands and their actual working: ping, telnet, netstat, traceroute
+
+#inode  contains the metadata of a file like : size, timestamp, userid , groupid, pointer to data
+        FIle names are saved separately with ink to the inode, in this way we can create hard link files and give file more than one name.
+        FileSystem--> File name -->INODE --> data
+
+        df -h
+        df -i    #give info on inodes, maximum number of inodes, in use inodes, percentage of inodes used.
+        ls       #when we do ls only file name is printed but for ls -l, metadata will also be printed
+
+#Hardlinks  Provide multiple names to same file (inode)
+      ln f2 file2
+      stat f2          #gives metadata of the file
+
+      It has same file size and have same inode number.
+      If you delete the original file , it will not impact the hard links.
+      Chnages are replicated , if softlink is update original file is also updated.
+
+
+#SoftLink  It is like a shortcut in windows.
+		   It has different inode number.
+		   It is the pointer to the original file.
+		   if we delete the original file, the soft links will become useless.
+		   Samller file size.
+
+
+##################Memory usage#########################
+free -m  
+free -g
+free -h 
+watch free -m  #runs every 2 second
+top -u user
+#if you type c , exact command will be expanded
+# h for help
+# top -0 <field>         This will sort based on the field provided(CPU)
+
+z color
+c command expansion
+u user 
+o sort on a field
+k kill the process
+d set the delay (refresh time)
+#######################################################
+
+Private key lives on local and public key will be kept on machines where we will be doing ssh
+ssh-keygen -t rsa -b 4096
+cd ~/.ssh
+ssh-copy-id  user@ip
+
+~/.ssh/authorized_keys
+chmod 600 authorized_keys
+
+##################################3
+
+# to check if a file exits         [ -e  file_name ]
+# to check if it is a file         [ -f  file_name ]
+# to check if it is a dir          [ -d  directory_name ]
+# to check if file is non-zero     [ -s  file_name ]
+
+################sed########################
+ sed -i .bak 's/t/T/g' text    					#will change the text file  and create a text.bak as well
+ sed -n '5,10p' myfile.txt     					# viewing a range of file
+ sed '20,35d' myfile.txt       					# Viewing the entire file except a given range
+ sed -n -e '5,7p' -e '10,13p' myfile.text       # Let’s display lines 5-7 and 10-13 from myfile.txt. As you can see, the -e option allows us to execute a 													 given action (in this case, print lines) for each range.
+ sed 's/version/story/g' myfile.txt
+ sed '30,40 s/version/story/g' myfile.text      # Replacing words or characters inside a range
+ sed G myfile.text                              # Inserting spaces in files
+ sed 'G;G' myfile.text                          # inserting two spaces in files
+ sed -i 's/\r//' myfile.txt                     # removing cntrl M characters from file
